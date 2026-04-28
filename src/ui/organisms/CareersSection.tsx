@@ -58,7 +58,15 @@ function CareersPaginatedBody({ items, loading, error, sectionRef }: CareersPagi
       ) : null}
 
       {loading && !error ? (
-        <p className="mt-10 text-center text-sm text-slate-600">Cargando programas…</p>
+        <div
+          className="mt-10 flex min-h-[240px] flex-col items-center justify-center gap-2 px-4 sm:min-h-[280px]"
+          role="status"
+          aria-live="polite"
+        >
+          <p className="text-center text-sm font-medium text-slate-600 dark:text-slate-400">
+            Cargando datos…
+          </p>
+        </div>
       ) : null}
 
       {!loading && !error && items.length === 0 ? (
