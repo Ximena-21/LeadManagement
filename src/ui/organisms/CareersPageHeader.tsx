@@ -13,10 +13,7 @@ export function CareersPageHeader({ visibleCount, totalCount }: CareersPageHeade
           <IconMortarboard className="h-4 w-4" />
           Programas
         </p>
-        <h2
-          id="carreras-heading"
-          className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
-        >
+        <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
           Carreras disponibles
         </h2>
       </div>

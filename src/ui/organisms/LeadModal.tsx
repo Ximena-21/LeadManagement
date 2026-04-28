@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { fieldInputClass } from "../atoms/fieldClasses";
 import { IconChevronDown } from "../atoms/IconChevronDown";
@@ -18,6 +18,7 @@ type LeadModalProps = {
 };
 
 export function LeadModal({ open, onClose }: LeadModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<LeadFormValues>({
     defaultValues: EMPTY_LEAD_FORM,
   });
@@ -50,15 +51,29 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
     return () => sub.unsubscribe();
   }, [open, watch]);
 
-  // handle keyboard escape and key enter to close the modal
   useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+    const d = dialogRef.current;
+    if (!d) return;
+    if (open) {
+      if (!d.open) d.showModal();
+    } else if (d.open) {
+      d.close();
+    }
+    return () => {
+      if (dialogRef.current?.open) dialogRef.current.close();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open]);
+
+  useEffect(() => {
+    const d = dialogRef.current;
+    if (!d) return;
+    const onCancel = (e: Event) => {
+      e.preventDefault();
+      onClose();
+    };
+    d.addEventListener("cancel", onCancel);
+    return () => d.removeEventListener("cancel", onCancel);
+  }, [onClose]);
 
   // handle body overflow when the modal is open
   useEffect(() => {
@@ -67,9 +82,6 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
       document.body.style.overflow = "";
     };
   }, [open]);
-
-  if (!open) return null;
-
 
   const onSubmit = (data: LeadFormValues) => {
     const cleaned = normalizeLeadPayload(data);
@@ -81,41 +93,26 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      role="presentation"
+    <dialog
+      ref={dialogRef}
+      className="fixed left-1/2 top-1/2 z-50 w-[min(100%-2rem,32rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 border-0 bg-transparent p-0 shadow-none [&::backdrop]:bg-black/50"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
-      <button
-        type="button"
-        className="absolute inset-0 bg-black/50"
-        onClick={onClose}
-      >
-        <span className="pointer-events-none absolute bottom-8 left-1/2 z-0 max-w-[min(100%-2rem,28rem)] -translate-x-1/2 rounded-lg bg-white/95 px-4 py-2 text-center text-sm font-semibold text-slate-800 shadow-md">
-          Cerrar ventana
-        </span>
-      </button>
       <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="lead-modal-title"
-        className="relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-8 shadow-xl"
+        className="relative max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-8 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
-          className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          className="absolute right-0 top-0 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           onClick={onClose}
         >
           <IconClose />
-          <span>Cerrar</span>
         </button>
 
-        <h2
-          id="lead-modal-title"
-          className="pr-10 text-2xl font-bold tracking-tight text-slate-900"
-        >
-          Solicita información
-        </h2>
+        <h2 className="pr-10 text-2xl font-bold tracking-tight text-slate-900">Solicita información</h2>
         <p className="mt-2 text-sm text-slate-500">
           Déjanos tus datos y un asesor te contactará para guiarte en tu elección.
         </p>
@@ -126,7 +123,7 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
               id="lead-fullName"
               className={fieldInputClass}
               placeholder="Juan Pérez"
-              {...register("fullName", { 
+              {...register("fullName", {
                 required: "Tu nombre completo es requerido",
                 minLength: {
                   value: 3,
@@ -135,7 +132,8 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
                 maxLength: {
                   value: 100,
                   message: "Tu nombre completo debe tener menos de 100 caracteres",
-                }, })}
+                },
+              })}
             />
           </FormField>
 
@@ -215,6 +213,6 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
           </button>
         </form>
       </div>
-    </div>
+    </dialog>
   );
 }

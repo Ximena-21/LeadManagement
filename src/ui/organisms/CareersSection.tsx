@@ -49,20 +49,13 @@ function CareersPaginatedBody({ items, loading, error, sectionRef }: CareersPagi
       </div>
 
       {error ? (
-        <p
-          className="mt-10 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-800"
-          role="alert"
-        >
+        <p className="mt-10 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-800">
           {error}
         </p>
       ) : null}
 
       {loading && !error ? (
-        <div
-          className="mt-10 flex min-h-[240px] flex-col items-center justify-center gap-2 px-4 sm:min-h-[280px]"
-          role="status"
-          aria-live="polite"
-        >
+        <div className="mt-10 flex min-h-[240px] flex-col items-center justify-center gap-2 px-4 sm:min-h-[280px]">
           <p className="text-center text-sm font-medium text-slate-600 dark:text-slate-400">
             Cargando datos…
           </p>
@@ -116,12 +109,7 @@ export function CareersSection() {
   }, [name, type, status, category, faculty, dispatch]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="carreras"
-      className="scroll-mt-6 bg-slate-50 py-10 sm:py-14"
-      aria-labelledby="carreras-heading"
-    >
+    <section ref={sectionRef} id="carreras" className="scroll-mt-6 bg-slate-50 py-10 sm:py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <CareersPaginatedBody
           key={paginationResetKey}

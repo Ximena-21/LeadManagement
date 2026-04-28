@@ -6,25 +6,14 @@ type HomeHeroProps = {
 
 export function HomeHero({ onRequestInfo }: HomeHeroProps) {
   return (
-    <section
-      className="relative min-h-svh overflow-hidden bg-gradient-to-b from-slate-50 via-white to-blue-50/40"
-      aria-labelledby="hero-heading"
-    >
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_38%,rgba(191,219,254,0.45)_0%,rgba(224,231,255,0.2)_35%,transparent_70%)]"
-        aria-hidden
-      />
-
+    <section className="relative min-h-svh overflow-hidden bg-[radial-gradient(ellipse_80%_55%_at_50%_38%,rgba(191,219,254,0.45)_0%,rgba(224,231,255,0.2)_35%,transparent_70%),linear-gradient(to_bottom,rgb(248_250_252),rgb(255_255_255),rgba(239_246_255,0.4))]">
       <div className="relative mx-auto flex min-h-svh max-w-3xl flex-col items-center justify-center px-5 py-16 text-center sm:px-8">
         <p className="inline-flex items-center gap-2 rounded-full border border-blue-200/90 bg-blue-50/80 px-3.5 py-1.5 text-sm font-medium text-blue-700 shadow-sm">
           <IconSparkles />
           Admisiones abiertas 2026
         </p>
 
-        <h1
-          id="hero-heading"
-          className="mt-6 max-w-2xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl"
-        >
+        <h1 className="mt-6 max-w-2xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
           Encuentra la carrera que{" "}
           <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             transformará tu futuro

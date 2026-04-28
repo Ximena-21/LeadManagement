@@ -1,6 +1,6 @@
 export function IconSliders({ className = "h-4 w-4" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+    <svg className={className} viewBox="0 0 24 24" fill="none">
       <path
         d="M4 6h16M8 12h8M10 18h4"
         stroke="currentColor"

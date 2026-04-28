@@ -7,7 +7,6 @@ export function IconSearch({ className = "h-5 w-5" }: { className?: string }) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      aria-hidden
     >
       <circle cx="11" cy="11" r="7" />
       <path d="M20 20l-3-3" />

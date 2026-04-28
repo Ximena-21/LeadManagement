@@ -37,22 +37,14 @@ function buildPageList(current: number, total: number): (number | "gap")[] {
   return out;
 }
 
-const paginationTitleId = "careers-pagination-title";
-
 export function CareersPagination({ page, totalPages, onPageChange }: CareersPaginationProps) {
   if (totalPages <= 1) return null;
 
   const list = buildPageList(page, totalPages);
 
   return (
-    <nav
-      className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-2"
-      aria-labelledby={paginationTitleId}
-    >
-      <h3
-        id={paginationTitleId}
-        className="order-1 w-full text-center text-sm font-semibold text-slate-800 sm:order-none sm:w-auto"
-      >
+    <nav className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-2">
+      <h3 className="order-1 w-full text-center text-sm font-semibold text-slate-800 sm:order-none sm:w-auto">
         Paginación de programas
       </h3>
       <p className="order-3 text-sm text-slate-500 sm:order-none">
@@ -64,19 +56,18 @@ export function CareersPagination({ page, totalPages, onPageChange }: CareersPag
         <ul className="flex list-none flex-wrap items-center justify-center gap-1.5 p-0">
           {list.map((entry, idx) =>
             entry === "gap" ? (
-              <li key={`gap-${idx}`} className="px-1 text-sm font-medium text-slate-400" aria-hidden>
+              <li key={`gap-${idx}`} className="px-1 text-sm font-medium text-slate-400">
                 …
               </li>
             ) : (
               <li key={entry}>
-                <button
-                  type="button"
-                  className={pageButtonClass(entry === page)}
-                  onClick={() => onPageChange(entry)}
-                  aria-current={entry === page ? "page" : undefined}
-                >
-                  {entry}
-                </button>
+                {entry === page ? (
+                  <span className={pageButtonClass(true)}>{entry}</span>
+                ) : (
+                  <button type="button" className={pageButtonClass(false)} onClick={() => onPageChange(entry)}>
+                    {entry}
+                  </button>
+                )}
               </li>
             ),
           )}

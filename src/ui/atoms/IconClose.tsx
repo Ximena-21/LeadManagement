@@ -10,7 +10,6 @@ export function IconClose({ className = "h-5 w-5" }: IconCloseProps) {
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
-      aria-hidden
     >
       <path d="M18 6L6 18M6 6l12 12" />
     </svg>
