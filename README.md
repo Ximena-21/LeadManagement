@@ -27,7 +27,7 @@ Single Page Application (SPA) diseñada en React para explorar, filtrar y gestio
    npm run lint
    ```
 
-###Tecnologías Principales (Stack)
+## Tecnologías Principales (Stack)
 
 
 | Tecnología        | Comportamiento                                             |
@@ -41,7 +41,7 @@ Single Page Application (SPA) diseñada en React para explorar, filtrar y gestio
 | Tailwind CSS      | capacidad para prototipar interfaces personalizadas        |
 
 
-###Características (Features)
+## Características (Features)
 
 - Filtros Dinámicos: Filtrado por facultad, tipo y estado directamente desde la API.
 - Persistencia de Formularios: Guardado automático en el navegador para evitar pérdida de datos.
@@ -51,7 +51,7 @@ Single Page Application (SPA) diseñada en React para explorar, filtrar y gestio
 
 El listado se obtiene por HTTP desde [Mockaroo](https://www.mockaroo.com/) (`careersApi.ts`). Hace falta **conexión a internet** para que la sección de carreras cargue. Si la petición falla (clave, cuota o red), verás el mensaje de error manejado en el estado de Redux.
 
-## Rutas
+### Rutas
 
 | Ruta        | Comportamiento                          |
 | ----------- | --------------------------------------- |
