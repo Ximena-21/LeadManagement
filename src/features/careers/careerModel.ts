@@ -1,37 +1,27 @@
-export type CareerLevel = "pregrado" | "posgrado" | "continua";
-
-export type CareerStatus = "activa" | "proxima";
-
-export type CareerModality = "presencial" | "hibrida" | "virtual";
-
 export type CareerProgram = {
   id: string;
   name: string;
   description: string;
-  level: CareerLevel | string;
-  status: CareerStatus | string;
+  level: string;
+  status: string;
   facultyId: string;
   facultyLabel: string;
   durationLabel: string;
-  modality: CareerModality;
+  modality: string;
   modalityLabel: string;
-  /** Etiqueta para categoría/nivel (p. ej. datos de API). */
   levelLabel?: string;
-  /** Etiqueta para estado (p. ej. datos de API). */
   statusLabel?: string;
-  /** Valor para filtro `type` en API cuando exista. */
   programType?: string;
-  /** Título con acento azul (referencia visual). */
   accentTitle?: boolean;
 };
 
-export const CAREER_LEVEL_LABEL: Record<CareerLevel, string> = {
+export const CAREER_LEVEL_LABEL = {
   pregrado: "Pregrado",
   posgrado: "Posgrado",
   continua: "Educación continua",
-};
+} as const;
 
-export const CAREER_STATUS_LABEL: Record<CareerStatus, string> = {
+export const CAREER_STATUS_LABEL = {
   activa: "Activa",
   proxima: "Próxima apertura",
-};
+} as const;

@@ -19,10 +19,8 @@ export const INITIAL_CAREERS_FILTERS: CareersApiFilters = {
   faculty: "",
 };
 
-type ApiId = string | { $oid: string };
-
 export type ApiCareerRaw = {
-  id: ApiId;
+  id: string;
   name: string;
   description: string;
   category: string;
@@ -35,33 +33,17 @@ export type ApiCareerRaw = {
   type?: string;
 };
 
-function careerId(raw: ApiCareerRaw): string {
-  const id = raw.id;
-  if (typeof id === "string") return id;
-  if (id && typeof id === "object" && "$oid" in id) return id.$oid;
-  return crypto.randomUUID();
-}
-
-function titleCaseSlug(s: string): string {
-  if (!s) return s;
-  return s
-    .split(/[\s_-]+/)
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
-}
-
 export function mapApiCareerToProgram(raw: ApiCareerRaw): CareerProgram {
   return {
-    id: careerId(raw),
+    id: raw.id,
     name: raw.name,
     description: raw.description,
     level: raw.category,
     status: raw.status,
-    levelLabel: titleCaseSlug(raw.category),
-    statusLabel: titleCaseSlug(raw.status),
+    levelLabel: raw.category,
+    statusLabel: raw.status,
     facultyId: raw.faculty,
-    facultyLabel: titleCaseSlug(raw.faculty),
+    facultyLabel: raw.faculty,
     durationLabel: `${raw.duration} meses`,
     modality: "presencial",
     modalityLabel: "Presencial",

@@ -14,7 +14,6 @@ export type CareersState = {
   loading: boolean;
   error: string | null;
   filters: CareersApiFilters;
-  /** Valores vistos en respuestas para poblar selects. */
   facets: {
     categories: CareerFacetOption[];
     types: CareerFacetOption[];
@@ -36,22 +35,14 @@ const initialState: CareersState = {
   },
 };
 
-function titleCaseSlug(s: string): string {
-  if (!s) return s;
-  return s
-    .split(/[\s_-]+/)
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
-}
-
 function mergeFacet(
   existing: CareerFacetOption[],
   value: string,
+  label: string = value,
 ): CareerFacetOption[] {
   if (!value) return existing;
   if (existing.some((o) => o.value === value)) return existing;
-  return [...existing, { value, label: titleCaseSlug(value) }].sort((a, b) =>
+  return [...existing, { value, label }].sort((a, b) =>
     a.label.localeCompare(b.label, "es"),
   );
 }
@@ -87,16 +78,28 @@ const careersSlice = createSlice({
         state.items = action.payload;
         for (const p of action.payload) {
           if (typeof p.level === "string" && p.level) {
-            state.facets.categories = mergeFacet(state.facets.categories, p.level);
+            state.facets.categories = mergeFacet(
+              state.facets.categories,
+              p.level,
+              p.levelLabel ?? p.level,
+            );
           }
           if (p.programType) {
             state.facets.types = mergeFacet(state.facets.types, p.programType);
           }
           if (typeof p.status === "string" && p.status) {
-            state.facets.statuses = mergeFacet(state.facets.statuses, p.status);
+            state.facets.statuses = mergeFacet(
+              state.facets.statuses,
+              p.status,
+              p.statusLabel ?? p.status,
+            );
           }
           if (p.facultyId) {
-            state.facets.faculties = mergeFacet(state.facets.faculties, p.facultyId);
+            state.facets.faculties = mergeFacet(
+              state.facets.faculties,
+              p.facultyId,
+              p.facultyLabel,
+            );
           }
         }
       })

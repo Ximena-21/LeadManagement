@@ -3,6 +3,7 @@ import {
   CAREER_STATUS_LABEL,
   type CareerProgram,
 } from "../../features/careers/careerModel";
+import { capitalizeWordsEs } from "../helpers/capitalizeWordsEs";
 import { IconClock } from "../atoms/IconClock";
 import { IconMapPin } from "../atoms/IconMapPin";
 import { IconMortarboard } from "../atoms/IconMortarboard";
@@ -37,7 +38,9 @@ export function CareerCard({ program }: CareerCardProps) {
       <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{program.description}</p>
 
       <div className="mt-auto flex flex-col gap-2.5 border-t border-slate-100 pt-5">
-        <CareerMetaRow icon={<IconMortarboard className="h-4 w-4" />}>{program.facultyLabel}</CareerMetaRow>
+        <CareerMetaRow icon={<IconMortarboard className="h-4 w-4" />}>
+          {capitalizeWordsEs(program.facultyLabel)}
+        </CareerMetaRow>
         <CareerMetaRow icon={<IconClock />}>{program.durationLabel}</CareerMetaRow>
         <CareerMetaRow icon={<IconMapPin />}>{program.modalityLabel}</CareerMetaRow>
       </div>
