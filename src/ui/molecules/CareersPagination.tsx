@@ -44,9 +44,6 @@ export function CareersPagination({ page, totalPages, onPageChange }: CareersPag
 
   return (
     <nav className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-2">
-      <h3 className="order-1 w-full text-center text-sm font-semibold text-slate-800 sm:order-none sm:w-auto">
-        Paginación de programas
-      </h3>
       <p className="order-3 text-sm text-slate-500 sm:order-none">
         Página <span className="font-semibold text-slate-700">{page}</span> de{" "}
         <span className="font-semibold text-slate-700">{totalPages}</span>
