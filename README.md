@@ -21,12 +21,6 @@ Single Page Application (SPA) diseñada en React para explorar, filtrar y gestio
    npm run dev
    ```
 
-3. **Comprobar lint**
-
-   ```bash
-   npm run lint
-   ```
-
 ## Tecnologías Principales (Stack)
 
 
